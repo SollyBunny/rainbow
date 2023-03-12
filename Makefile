@@ -1,12 +1,16 @@
+NAME=rainbow
+SOURCE=main.c
+CFLAGS=-O4 -s -lm -ffast-math
+
 build:
-	gcc main.c -o rainbow -s -lm -ffast-math -O3
-
-run:
-	cat text.txt | ./rainbow
-
-time:
-	time cat text.txt | ./rainbow
+	cc $(SOURCE) -o $(NAME) $(CFLAGS)
 
 install:
-	-rm "/usr/local/bin/rainbow"
-	ln -s "`pwd`/rainbow" "/usr/local/bin/rainbow"
+	rm -f "/usr/local/bin/$(NAME)"
+	ln -s "`pwd`/$(NAME)" "/usr/local/bin/$(NAME)"
+
+uninstall:
+	rm -f "/usr/local/bin/$(NAME)"
+
+test: build
+	figlet "Hello world" | "./$(NAME)"
